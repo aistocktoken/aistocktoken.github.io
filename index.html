@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AIS Token – AI Service Payments on Arbitrum</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AIS is a utility token designed for AI service payments on Arbitrum One, with fast, low-cost transactions." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AIS Token – AI Service Payments on Arbitrum" />
+  <meta property="og:description" content="AIS powers AI service payments on Arbitrum One with fast, low-cost, on-chain settlement." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" />
+
+  <!-- Basic styling -->
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.12);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 20%, #ffffff 0, #4f46e5 35%, #020617 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(79, 70, 229, 0.55);
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .brand-text-title {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-text-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .header-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .header-link {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-link span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e5e7eb;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 880px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617 80%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(148, 163, 255, 0.12), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    h1 {
+      font-size: clamp(28px, 3vw, 34px);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, #e5e7eb, #a5b4fc, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: white;
+      box-shadow: 0 14px 30px rgba(79, 70, 229, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.7);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .note strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .side-card {
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom left, rgba(15, 23, 42, 0.95), #020617 80%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(148, 163, 255, 0.1), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .side-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .token-meta {
+      display: grid;
+      grid-template-columns: 1.1fr 1.4fr;
+      gap: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .meta-value {
+      color: #e5e7eb;
+      word-break: break-all;
+    }
+
+    .meta-highlight {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      padding: 7px 9px;
+      border-radius: var(--radius-md);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: #e5e7eb;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0 10px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+    }
+
+    .links-list {
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .links-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7eb;
+    }
+
+    .links-list small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .warn {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--danger);
+      background: rgba(248, 113, 113, 0.06);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      padding: 7px 9px;
+    }
+
+    section {
+      margin-top: 26px;
+    }
+
+    section h2 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    section p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 8px;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    ul li {
+      margin-bottom: 4px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" alt="AIS Token Logo" />
+        </div>
+        <div>
+          <div class="brand-text-title">AIS Token</div>
+          <div class="brand-text-sub">AI service payments on Arbitrum One</div>
+        </div>
+      </div>
+      <div class="header-links">
+        <a class="header-link" href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" rel="noopener noreferrer">
+          <span>Explorer</span> Arbiscan
+        </a>
+        <a class="header-link" href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" rel="noopener noreferrer">
+          <span>DEX</span> Uniswap
+        </a>
+        <a class="header-link" href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/ais-tokenlist.json" target="_blank" rel="noopener noreferrer">
+          <span>JSON</span> Token list
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Left: Hero / Overview -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            On-chain utility for AI services
+          </div>
+
+          <h1>
+            <span class="gradient-text">AIS Token</span> – payments for AI workloads on Arbitrum
+          </h1>
+
+          <p class="subtitle">
+            AIS is a utility token designed for fast, low-cost payments for AI services on Arbitrum One.
+            It powers usage-based billing, credits, and settlement for AI workloads without relying on
+            traditional payment rails.
+          </p>
+
+          <div class="badge-row">
+            <div class="badge">Chain: Arbitrum One (42161)</div>
+            <div class="badge">Standard: ERC‑20</div>
+            <div class="badge">Use case: AI service payments</div>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" rel="noopener noreferrer">
+              Open AIS on Uniswap
+            </a>
+            <a class="btn btn-secondary" href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" rel="noopener noreferrer">
+              View contract on Arbiscan
+            </a>
+          </div>
+
+          <p class="note">
+            <strong>Important:</strong> AIS is a utility token for AI service payments. It is not an investment,
+            does not represent equity, and does not grant ownership, governance, or profit rights.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Token details -->
+      <aside class="side-card">
+        <div class="side-card-inner">
+          <div class="side-title">Token details</div>
+
+          <div class="token-meta">
+            <div class="meta-label">Name</div>
+            <div class="meta-value">AIS Token</div>
+
+            <div class="meta-label">Symbol</div>
+            <div class="meta-value">AIS</div>
+
+            <div class="meta-label">Network</div>
+            <div class="meta-value">Arbitrum One (L2)</div>
+
+            <div class="meta-label">Decimals</div>
+            <div class="meta-value">18</div>
+
+            <div class="meta-label">Standard</div>
+            <div class="meta-value">ERC‑20</div>
+
+            <div class="meta-label">Primary use</div>
+            <div class="meta-value">AI service payments & credits</div>
+          </div>
+
+          <div class="meta-label" style="margin-top: 6px;">Contract address</div>
+          <div class="meta-highlight">
+            0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69
+          </div>
+
+          <div class="chip-row">
+            <div class="chip">Deployed on Arbitrum One</div>
+            <div class="chip">Optimized for low fees</div>
+            <div class="chip">Suitable for micro‑transactions</div>
+          </div>
+
+          <div class="links-list">
+            <div>
+              <a href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" rel="noopener noreferrer">
+                Arbiscan token page
+              </a>
+              <small>Official on‑chain reference for AIS.</small>
+            </div>
+            <div>
+              <a href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" rel="noopener noreferrer">
+                Uniswap – swap & liquidity
+              </a>
+              <small>Swap AIS or provide liquidity on Arbitrum.</small>
+            </div>
+            <div>
+              <a href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/ais-tokenlist.json" target="_blank" rel="noopener noreferrer">
+                AIS token list (JSON)
+              </a>
+              <small>Uniswap‑compatible token list for integration.</small>
+            </div>
+          </div>
+
+          <div class="warn">
+            Always verify the contract address before interacting with AIS:
+            <strong>0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69</strong>.
+            Do not trust tokens with similar names but different addresses.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- About section -->
+    <section>
+      <h2>What is AIS?</h2>
+      <p>
+        AIS is a utility token used to pay for AI services running on Arbitrum One. Instead of relying on
+        traditional payment processors, AIS enables direct, on‑chain settlement for AI workloads, credits,
+        and usage‑based billing. The goal is to provide a predictable, low‑friction way to pay for AI
+        inference, automation, and related services.
+      </p>
+      <p>
+        By leveraging Arbitrum’s low fees and high throughput, AIS is suitable for both micro‑transactions
+        and higher‑volume usage, making it a practical medium of exchange for AI‑driven products.
+      </p>
+    </section>
+
+    <!-- Utility section -->
+    <section>
+      <h2>Utility and intended use</h2>
+      <p>AIS is designed specifically for:</p>
+      <ul>
+        <li>Pay‑as‑you‑go AI workloads (per request, per token, or per session).</li>
+        <li>Prepaid credit systems for AI tools and automation workflows.</li>
+        <li>On‑chain settlement between AI service providers and users.</li>
+        <li>Integration into custom dashboards, backends, and billing systems.</li>
+      </ul>
+      <p>
+        AIS does <strong>not</strong> represent equity, governance rights, or a claim on revenue. It is a
+        pure utility token intended to be used within AI‑related products and services.
+      </p>
+    </section>
+
+    <!-- Integration section -->
+    <section>
+      <h2>Integration and developer notes</h2>
+      <p>
+        AIS follows the ERC‑20 standard on Arbitrum One, which makes it straightforward to integrate into
+        existing wallets, dApps, and infrastructure:
+      </p>
+      <ul>
+        <li>Standard ERC‑20 interface (balanceOf, transfer, allowance, approve, transferFrom).</li>
+        <li>Compatible with common tooling (ethers.js, web3.js, wagmi, etc.).</li>
+        <li>Can be used in custom payment gateways, metering systems, and credit models.</li>
+      </ul>
+      <p>
+        For backend integrations, you can listen to AIS transfer events on Arbitrum and map them to user
+        accounts, credits, or usage quotas in your own systems.
+      </p>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> AIS Token – AI service payments on Arbitrum One.</div>
+      <div>Always verify the contract address before interacting with AIS.</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
