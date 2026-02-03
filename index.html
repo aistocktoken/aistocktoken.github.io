@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AIS Token – The Payment Engine for AI on Arbitrum</title>
+  <title>AIS Token – The Payment Layer for Autonomous AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="AIS is a next-generation utility token for AI workloads on Arbitrum One, enabling fast, low-cost, on-chain payments for inference, automation, and autonomous agents." />
   <meta name="robots" content="index,follow" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="AIS Token – The Payment Engine for AI on Arbitrum" />
+  <meta property="og:title" content="AIS Token – The Payment Layer for Autonomous AI" />
   <meta property="og:description" content="AIS powers real-time, low-cost payments for AI workloads on Arbitrum One, built for autonomous agents and AI-native systems." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" />
@@ -20,19 +20,15 @@
   <meta name="twitter:description" content="AIS is a utility token for AI service payments on Arbitrum One, optimized for micro-transactions and real-time settlement." />
   <meta name="twitter:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" />
 
-  <!-- Favicon (optional, adjust if you have one) -->
   <link rel="icon" href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" type="image/png" />
 
-  <!-- Dark sci-fi / cyber aesthetic styling -->
   <style>
     :root {
       --bg: #020617;
       --bg-alt: #050816;
-      --bg-elevated: #050816;
       --accent: #38bdf8;
-      --accent-strong: #4f46e5;
+      --accent-strong: #6366f1;
       --accent-soft: rgba(56, 189, 248, 0.16);
-      --accent-soft-2: rgba(79, 70, 229, 0.18);
       --text: #f9fafb;
       --muted: #9ca3af;
       --border: #1f2937;
@@ -41,6 +37,7 @@
       --radius-md: 12px;
       --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.65);
       --glass: rgba(15, 23, 42, 0.82);
+      --code-bg: #020617;
     }
 
     * {
@@ -78,7 +75,6 @@
       z-index: 1;
     }
 
-    /* Subtle grid / scanline overlay */
     .page::before {
       content: "";
       position: fixed;
@@ -107,8 +103,8 @@
     }
 
     .brand-logo {
-      width: 52px;
-      height: 52px;
+      width: 56px;
+      height: 56px;
       border-radius: 18px;
       background:
         radial-gradient(circle at 30% 20%, #ffffff 0, #38bdf8 30%, #020617 100%);
@@ -118,6 +114,7 @@
       box-shadow: 0 18px 40px rgba(56, 189, 248, 0.65);
       overflow: hidden;
       position: relative;
+      animation: heroGlow 7s ease-in-out infinite;
     }
 
     .brand-logo::after {
@@ -175,6 +172,7 @@
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
       position: relative;
       overflow: hidden;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     .header-link::before {
@@ -188,6 +186,11 @@
 
     .header-link:hover::before {
       opacity: 1;
+    }
+
+    .header-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.9);
     }
 
     .header-link span {
@@ -326,7 +329,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #38bdf8, #4f46e5);
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
       color: white;
       box-shadow: 0 18px 40px rgba(56, 189, 248, 0.7);
     }
@@ -373,7 +376,6 @@
       font-weight: 500;
     }
 
-    /* Side card */
     .side-card {
       background:
         radial-gradient(circle at top right, rgba(79, 70, 229, 0.22), transparent 55%),
@@ -485,13 +487,12 @@
       padding: 7px 9px;
     }
 
-    /* Sections */
     section {
-      margin-top: 30px;
+      margin-top: 32px;
     }
 
     section h2 {
-      font-size: 16px;
+      font-size: 15px;
       margin-bottom: 8px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -501,7 +502,7 @@
     section p {
       font-size: 13px;
       color: var(--muted);
-      max-width: 760px;
+      max-width: 780px;
       margin-bottom: 8px;
     }
 
@@ -510,7 +511,7 @@
       margin-top: 4px;
       font-size: 13px;
       color: var(--muted);
-      max-width: 760px;
+      max-width: 780px;
     }
 
     ul li {
@@ -528,6 +529,165 @@
       top: 2px;
     }
 
+    /* Developer section */
+    .dev-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .dev-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 12px 12px 10px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: #e5e7eb;
+      overflow-x: auto;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .code-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4b5563;
+    }
+
+    .code-dot:nth-child(1) { background: #f97373; }
+    .code-dot:nth-child(2) { background: #facc15; }
+    .code-dot:nth-child(3) { background: #22c55e; }
+
+    .code-body {
+      white-space: pre;
+    }
+
+    /* Integrator flow */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .flow-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .flow-steps {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .flow-steps ol {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 6px;
+    }
+
+    .flow-steps li {
+      margin-bottom: 8px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .flow-steps li::before {
+      content: "◦";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+      top: 1px;
+    }
+
+    .flow-diagram {
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 60%),
+                  radial-gradient(circle at bottom, rgba(79, 70, 229, 0.18), transparent 60%),
+                  rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 14px 16px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flow-diagram pre {
+      white-space: pre;
+    }
+
+    /* Roadmap */
+    .roadmap {
+      margin-top: 10px;
+      max-width: 780px;
+    }
+
+    .roadmap-item {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .roadmap-node {
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .roadmap-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+    }
+
+    .roadmap-line {
+      position: absolute;
+      top: 10px;
+      left: 4px;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(56, 189, 248, 0.5), transparent);
+      opacity: 0.7;
+    }
+
+    .roadmap-content-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 2px;
+    }
+
+    .roadmap-content-body {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
     footer {
       margin-top: 34px;
       font-size: 11px;
@@ -538,6 +698,30 @@
       flex-wrap: wrap;
       gap: 8px;
       justify-content: space-between;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animations */
+    @keyframes heroGlow {
+      0%, 100% {
+        box-shadow: 0 18px 40px rgba(56, 189, 248, 0.55);
+        transform: translateY(0);
+      }
+      50% {
+        box-shadow: 0 24px 60px rgba(56, 189, 248, 0.9);
+        transform: translateY(-1px);
+      }
     }
   </style>
 </head>
@@ -568,8 +752,8 @@
     </header>
 
     <main>
-      <!-- Left: Hero / Overview -->
-      <div class="card">
+      <!-- Hero -->
+      <div class="card reveal">
         <div class="card-inner">
           <div class="pill">
             <span class="pill-dot"></span>
@@ -608,8 +792,8 @@
         </div>
       </div>
 
-      <!-- Right: Token details -->
-      <aside class="side-card">
+      <!-- Token details -->
+      <aside class="side-card reveal">
         <div class="side-card-inner">
           <div class="side-title">Token details</div>
 
@@ -674,8 +858,8 @@
       </aside>
     </main>
 
-    <!-- About section -->
-    <section>
+    <!-- What is AIS -->
+    <section class="reveal">
       <h2>What is AIS?</h2>
       <p>
         AIS is a utility token purpose-built for AI-driven systems operating on Arbitrum One. Instead of relying
@@ -689,8 +873,8 @@
       </p>
     </section>
 
-    <!-- Utility section -->
-    <section>
+    <!-- Utility -->
+    <section class="reveal">
       <h2>Utility and intended use</h2>
       <p>AIS is engineered for real-world AI payment flows, including:</p>
       <ul>
@@ -705,22 +889,153 @@
       </p>
     </section>
 
-    <!-- Integration section -->
-    <section>
-      <h2>Integration and developer notes</h2>
+    <!-- For Developers -->
+    <section class="reveal">
+      <h2>For developers</h2>
+      <div class="dev-grid">
+        <div>
+          <p>
+            AIS follows the ERC‑20 standard on Arbitrum One, making it straightforward to integrate into wallets,
+            dApps, and backend systems. You can use familiar tooling such as ethers.js, web3.js, or wagmi to
+            interact with the contract and build custom payment flows for AI workloads.
+          </p>
+          <p>
+            Common patterns include mapping AIS transfers to user credits, implementing usage-based billing, and
+            listening to on-chain events to drive automation in your infrastructure.
+          </p>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="code-dot"></span>
+              <span class="code-dot"></span>
+              <span class="code-dot"></span>
+            </div>
+            <span>ethers.js example</span>
+          </div>
+          <div class="code-body" id="code-dev">
+import { ethers } from "ethers";
+
+const provider = new ethers.JsonRpcProvider(
+  "https://arb1.arbitrum.io/rpc"
+);
+
+const ais = new ethers.Contract(
+  "0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69",
+  ["function balanceOf(address) view returns (uint256)",
+   "event Transfer(address indexed from, address indexed to, uint256 value)"],
+  provider
+);
+
+// Read balance
+const balance = await ais.balanceOf("0xYourAddress");
+console.log("AIS balance:", balance.toString());
+
+// Listen for payments
+ais.on("Transfer", (from, to, value) => {
+  console.log(`AIS Transfer: ${value} from ${from} to ${to}`);
+});
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- For Integrators -->
+    <section class="reveal">
+      <h2>For integrators</h2>
+      <div class="flow-grid">
+        <div class="flow-steps">
+          <p>
+            AIS is designed to slot cleanly into existing AI products, dashboards, and automation platforms. A
+            typical integration flow looks like this:
+          </p>
+          <ol>
+            <li><strong>User acquires AIS</strong> via Uniswap or any Arbitrum-compatible wallet.</li>
+            <li><strong>User sends AIS</strong> to your service address or payment contract.</li>
+            <li><strong>Backend listens</strong> for AIS <code>Transfer</code> events on Arbitrum.</li>
+            <li><strong>Credits are issued</strong> based on the amount of AIS received.</li>
+            <li><strong>AI workloads consume credits</strong> per request, token, or session.</li>
+            <li><strong>Usage is tracked</strong> and surfaced in your UI or API.</li>
+          </ol>
+        </div>
+        <div class="flow-diagram">
+<pre>
+[ User Wallet ]
+       |
+       v
+[ AIS Transfer ] ---> [ Arbitrum Network ]
+       |                        |
+       v                        v
+[ Backend Listener ] ---> [ Credit Engine ]
+       |                        |
+       v                        v
+[  AI Workload  ] <----- [ Usage Metering ]
+</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap / Vision -->
+    <section class="reveal">
+      <h2>Roadmap & vision</h2>
       <p>
-        AIS follows the ERC‑20 standard on Arbitrum One, which makes it straightforward to integrate into existing
-        wallets, dApps, and infrastructure:
+        AIS aims to become a reliable payment primitive for AI-native systems. The focus is on practical,
+        integration-ready tooling rather than speculation — with an emphasis on transparency, simplicity, and
+        predictable behavior on-chain.
       </p>
-      <ul>
-        <li>Standard ERC‑20 interface (balanceOf, transfer, allowance, approve, transferFrom).</li>
-        <li>Compatible with common tooling (ethers.js, web3.js, wagmi, and more).</li>
-        <li>Suitable for custom payment gateways, metering systems, and credit models.</li>
-      </ul>
-      <p>
-        For backend integrations, you can listen to AIS transfer events on Arbitrum and map them to user accounts,
-        credit balances, or usage quotas in your own systems — enabling fully automated billing for AI workloads.
-      </p>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-line"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Expanded developer tooling</div>
+            <div class="roadmap-content-body">
+              More examples, templates, and integration guides for dApps, backends, and AI platforms using AIS
+              as a payment layer.
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-line"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Ecosystem integrations</div>
+            <div class="roadmap-content-body">
+              Encouraging adoption across AI dashboards, automation tools, and agent frameworks that benefit
+              from on-chain, usage-based billing.
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-line"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Standardized metering patterns</div>
+            <div class="roadmap-content-body">
+              Documenting best practices for mapping AIS payments to credits, quotas, and AI workload
+              consumption in a transparent way.
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Open-source reference implementations</div>
+            <div class="roadmap-content-body">
+              Publishing reference integrations that demonstrate end-to-end AIS-powered payment flows for AI
+              services, from wallet to workload.
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <footer>
@@ -730,7 +1045,41 @@
   </div>
 
   <script>
+    // Dynamic year
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    reveals.forEach((el) => observer.observe(el));
+
+    // Simple "terminal boot" effect for dev code
+    (function () {
+      const el = document.getElementById("code-dev");
+      if (!el) return;
+      const full = el.textContent;
+      el.textContent = "";
+      let i = 0;
+      const speed = 8; // ms per char
+      function type() {
+        if (i <= full.length) {
+          el.textContent = full.slice(0, i);
+          i++;
+          requestAnimationFrame(type);
+        }
+      }
+      setTimeout(type, 300);
+    })();
   </script>
 </body>
 </html>
