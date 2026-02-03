@@ -1,130 +1,919 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title data-i18n="meta.title">AIS Token – The Payment Layer for Autonomous AI</title><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" data-i18n="meta.description" content="AIS is a next-generation utility token for AI workloads on Arbitrum One, enabling fast, low-cost, on-chain payments for inference, automation, and autonomous agents."/><meta name="robots" content="index,follow"/><meta property="og:title" data-i18n="meta.og_title" content="AIS Token – The Payment Layer for Autonomous AI"/><meta property="og:description" data-i18n="meta.og_description" content="AIS powers real-time, low-cost payments for AI workloads on Arbitrum One, built for autonomous agents and AI-native systems."/><meta property="og:type" content="website"/><meta property="og:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png"/><meta property="og:url" content="https://aistocktoken.github.io"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" data-i18n="meta.twitter_title" content="AIS Token – AI Payment Layer on Arbitrum"/><meta name="twitter:description" data-i18n="meta.twitter_description" content="AIS is a utility token for AI service payments on Arbitrum One, optimized for micro-transactions and real-time settlement."/><meta name="twitter:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png"/><link rel="icon" href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" type="image/png"/><style>
-:root{--bg:#020617;--bg-alt:#050816;--accent:#38bdf8;--accent-strong:#6366f1;--accent-soft:rgba(56,189,248,.16);--text:#f9fafb;--muted:#9ca3af;--border:#1f2937;--danger:#f97373;--radius-lg:20px;--radius-md:12px;--shadow-soft:0 24px 60px rgba(0,0,0,.65);--glass:rgba(15,23,42,.82);--code-bg:#020617}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;background:radial-gradient(circle at 10% -10%,rgba(56,189,248,.18),transparent 55%),radial-gradient(circle at 90% 110%,rgba(79,70,229,.22),transparent 55%),radial-gradient(circle at 50% 50%,#020617 0,#000 70%);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.page{max-width:1180px;margin:0 auto;padding:32px 20px 64px;position:relative;z-index:1}
-.page:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(15,23,42,.45) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.45) 1px,transparent 1px);background-size:40px 40px;opacity:.18;z-index:-1}
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px}
-.brand{display:flex;align-items:center;gap:14px}
-.brand-logo{width:56px;height:56px;border-radius:18px;background:radial-gradient(circle at 30% 20%,#fff 0,#38bdf8 30%,#020617 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(56,189,248,.65);overflow:hidden;position:relative;animation:heroGlow 7s ease-in-out infinite}
-.brand-logo:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 0,rgba(248,250,252,.18),transparent 55%);mix-blend-mode:screen;pointer-events:none}
-.brand-logo img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
-.brand-text-title{font-weight:600;letter-spacing:.16em;font-size:13px;text-transform:uppercase;color:var(--muted)}
-.brand-text-main{font-size:16px;font-weight:600;color:#e5e7eb}
-.brand-text-sub{font-size:13px;color:var(--muted)}
-.header-links{display:flex;flex-wrap:wrap;gap:10px;font-size:13px}
-.header-link{padding:7px 13px;border-radius:999px;border:1px solid rgba(148,163,184,.4);color:var(--muted);display:inline-flex;align-items:center;gap:6px;background:var(--glass);backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(15,23,42,.7);position:relative;overflow:hidden;transition:transform .12s ease,box-shadow .12s ease}
-.header-link:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(56,189,248,.16),transparent 60%);opacity:0;transition:opacity .15s ease}
-.header-link:hover:before{opacity:1}
-.header-link:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgba(15,23,42,.9)}
-.header-link span{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#e5e7eb}
-.lang-switcher{position:relative;margin-left:12px}
-.lang-globe{cursor:pointer;font-size:10px;line-height:10px;color:var(--muted);padding:4px 6px;border-radius:6px;border:1px solid rgba(148,163,184,.35);background:rgba(15,23,42,.7);backdrop-filter:blur(6px);transition:all .15s ease;white-space:pre}
-.lang-globe:hover{color:var(--accent);border-color:var(--accent);box-shadow:0 0 12px rgba(56,189,248,.4)}
-.lang-menu{position:absolute;top:42px;right:0;background:rgba(15,23,42,.95);border:1px solid rgba(148,163,184,.4);border-radius:10px;padding:6px 0;width:70px;display:none;flex-direction:column;box-shadow:0 18px 40px rgba(0,0,0,.7);animation:fadeScale .18s ease forwards}
-.lang-option{padding:6px 12px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .15s ease}
-.lang-option:hover{color:var(--accent);background:rgba(56,189,248,.12)}
-@keyframes fadeScale{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:scale(1)}}
-main{display:grid;grid-template-columns:minmax(0,3.1fr) minmax(0,2.3fr);gap:26px}
-@media(max-width:900px){main{grid-template-columns:minmax(0,1fr)}header{flex-direction:column;align-items:flex-start}}
-.card,.side-card{background:radial-gradient(circle at top left,rgba(56,189,248,.18),transparent 55%),radial-gradient(circle at bottom right,rgba(15,23,42,.96),#020617 80%);border-radius:var(--radius-lg);border:1px solid rgba(148,163,184,.3);padding:24px 24px 22px;box-shadow:var(--shadow-soft);position:relative;overflow:hidden}
-.card:before,.side-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top,rgba(148,163,255,.16),transparent 60%);opacity:.8;pointer-events:none}
-.card-inner,.side-card-inner{position:relative;z-index:1}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.5);color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em;margin-bottom:14px}
-.pill-dot{width:7px;height:7px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.25)}
-h1{font-size:clamp(30px,3.4vw,38px);line-height:1.12;margin-bottom:12px}
-.gradient-text{background:linear-gradient(120deg,#e5e7eb,#a5b4fc,#38bdf8);-webkit-background-clip:text;color:transparent}
-.subtitle{font-size:14px;color:var(--muted);max-width:540px;margin-bottom:20px}
-.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.badge{font-size:11px;text-transform:uppercase;letter-spacing:.14em;padding:5px 11px;border-radius:999px;border:1px solid rgba(148,163,184,.5);color:#e5e7eb;background:rgba(15,23,42,.96)}
-.cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 18px;border-radius:999px;border:none;cursor:pointer;font-size:13px;font-weight:500;text-decoration:none;transition:transform .08s ease,box-shadow .08s ease,background .12s ease,opacity .12s ease;white-space:nowrap;position:relative;overflow:hidden}
-.btn-primary{background:linear-gradient(135deg,#38bdf8,#6366f1);color:#fff;box-shadow:0 18px 40px rgba(56,189,248,.7)}
-.btn-primary:before,.btn-secondary:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(248,250,252,.18),transparent 60%);opacity:0;transition:opacity .15s ease}
-.btn-primary:hover:before,.btn-secondary:hover:before{opacity:1}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 22px 50px rgba(56,189,248,.85)}
-.btn-secondary{background:rgba(15,23,42,.96);color:#e5e7eb;border:1px solid rgba(148,163,184,.6);box-shadow:0 14px 32px rgba(15,23,42,.9)}
-.btn-secondary:hover{transform:translateY(-1px)}
-.note{font-size:12px;color:var(--muted);max-width:560px}
-.note strong{color:#e5e7eb;font-weight:500}
-.side-title{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:10px}
-.token-meta{display:grid;grid-template-columns:1.1fr 1.5fr;gap:10px 16px;font-size:13px;margin-bottom:12px}
-.meta-label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.14em}
-.meta-value{color:#e5e7eb;word-break:break-all}
-.meta-highlight{font-family:"SF Mono",ui-monospace,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:12px;padding:8px 10px;border-radius:var(--radius-md);background:rgba(15,23,42,.98);border:1px solid rgba(148,163,184,.55);color:#e5e7eb;margin-top:4px;word-break:break-all}
-.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px}
-.chip{font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.4);color:#e5e7eb}
-.links-list div{margin-bottom:12px}
-.links-list small{display:block;font-size:11px;color:var(--muted)}
-.warn{font-size:12px;color:var(--danger);margin-top:12px}
-section{margin-top:48px}
-h2{font-size:22px;margin-bottom:12px}
-ul,ol{margin-left:20px;margin-bottom:12px}
-.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:900px){.dev-grid{grid-template-columns:1fr}}
-.code-block{background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.4);border-radius:var(--radius-lg);overflow:hidden}
-.code-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(15,23,42,.95);border-bottom:1px solid rgba(148,163,184,.3)}
-.code-dots{display:flex;gap:6px}
-.code-dot{width:8px;height:8px;border-radius:50%;background:#475569}
-.code-body{padding:14px;font-family:"SF Mono",ui-monospace,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:12px;white-space:pre;overflow-x:auto;color:#e5e7eb}
-.flow-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:900px){.flow-grid{grid-template-columns:1fr}}
-.flow-diagram{background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.4);border-radius:var(--radius-lg);padding:16px;font-family:"SF Mono",ui-monospace;white-space:pre;overflow-x:auto}
-.roadmap{margin-top:20px}
-.roadmap-item{display:flex;gap:16px;margin-bottom:24px}
-.roadmap-node{display:flex;flex-direction:column;align-items:center}
-.roadmap-dot{width:12px;height:12px;border-radius:50%;background:var(--accent)}
-.roadmap-line{flex:1;width:2px;background:rgba(148,163,184,.4)}
-.roadmap-content-title{font-weight:600;margin-bottom:4px}
-.roadmap-content-body{font-size:14px;color:var(--muted)}
-footer{margin-top:60px;font-size:13px;color:var(--muted);text-align:center;line-height:1.5}
-.reveal{opacity:0;transform:translateY(20px);transition:all .6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-@keyframes heroGlow{0%,100%{box-shadow:0 18px 40px rgba(56,189,248,.65)}50%{box-shadow:0 18px 60px rgba(56,189,248,.9)}}
-</style></head><body><div class="page"><header><div class="brand"><div class="brand-logo"><img src="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" alt="AIS Token Logo"/></div><div><div class="brand-text-title" data-i18n="header.token_label">AIS TOKEN</div><div class="brand-text-main" data-i18n="header.tagline">The payment layer for autonomous AI</div><div class="brand-text-sub" data-i18n="header.subtagline">Utility token for AI workloads on Arbitrum One</div></div></div>
-<div class="header-links">
-<a class="header-link" href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank"><span data-i18n="header.explorer_label">Explorer</span> Arbiscan</a>
-<a class="header-link" href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank"><span data-i18n="header.dex_label">DEX</span> Uniswap</a>
-<a class="header-link" href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/ais-tokenlist.json" target="_blank"><span data-i18n="header.json_label">JSON</span> Token list</a>
-</div>
-<div class="lang-switcher"><div class="lang-globe" id="langToggle"><pre>.--.
-( () )
- '--'</pre></div><div class="lang-menu" id="langMenu"><div class="lang-option" data-lang="en">EN</div><div class="lang-option" data-lang="pl">PL</div><div class="lang-option" data-lang="de">DE</div></div></div>
-</header>
-<main>
-<div class="card reveal"><div class="card-inner"><div class="pill"><span class="pill-dot"></span><span data-i18n="hero.pill">On-chain utility powering autonomous AI</span></div><h1><span class="gradient-text">AIS Token</span> <span data-i18n="hero.title">— the payment engine for AI workloads on Arbitrum</span></h1><p class="subtitle" data-i18n="hero.subtitle">AIS is a next-generation utility token engineered for real-time, low-cost payments across AI systems. Built on Arbitrum One, AIS enables seamless settlement for inference, automation, and agent-driven workloads — without relying on traditional payment rails.</p><div class="badge-row"><div class="badge" data-i18n="hero.badge_chain">Chain: Arbitrum One (42161)</div><div class="badge" data-i18n="hero.badge_standard">Standard: ERC‑20</div><div class="badge" data-i18n="hero.badge_utility">Utility: AI service payments</div></div><div class="cta-row"><a class="btn btn-primary" href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" data-i18n="hero.cta_uniswap">Open AIS on Uniswap</a><a class="btn btn-secondary" href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" data-i18n="hero.cta_contract">View contract on Arbiscan</a></div><p class="note" data-i18n="hero.note"><strong>Important:</strong> AIS is a pure utility token designed for AI service payments. It is not an investment and does not grant ownership, governance, or profit rights.</p></div></div>
-<aside class="side-card reveal"><div class="side-card-inner"><div class="side-title" data-i18n="token.title">Token details</div><div class="token-meta"><div class="meta-label" data-i18n="token.name_label">Name</div><div class="meta-value" data-i18n="token.name_value">AIS Token</div><div class="meta-label" data-i18n="token.symbol_label">Symbol</div><div class="meta-value" data-i18n="token.symbol_value">AIS</div><div class="meta-label" data-i18n="token.network_label">Network</div><div class="meta-value" data-i18n="token.network_value">Arbitrum One (L2)</div><div class="meta-label" data-i18n="token.decimals_label">Decimals</div><div class="meta-value" data-i18n="token.decimals_value">18</div><div class="meta-label" data-i18n="token.standard_label">Standard</div><div class="meta-value" data-i18n="token.standard_value">ERC‑20</div><div class="meta-label" data-i18n="token.use_label">Primary use</div><div class="meta-value" data-i18n="token.use_value">AI service payments & credit systems</div></div><div class="meta-label" data-i18n="token.contract_label" style="margin-top:6px;">Contract address</div><div class="meta-highlight">0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69</div><div class="chip-row"><div class="chip" data-i18n="token.chip_1">Native to Arbitrum One</div><div class="chip" data-i18n="token.chip_2">Optimized for low-fee execution</div><div class="chip" data-i18n="token.chip_3">Ideal for micro-transactions</div></div><div class="links-list"><div><a href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" data-i18n="token.link_arbiscan">Arbiscan token page</a><small data-i18n="token.link_arbiscan_desc">Official on-chain reference for AIS.</small></div><div><a href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" data-i18n="token.link_uniswap">Uniswap – swap & liquidity</a><small data-i18n="token.link_uniswap_desc">Swap AIS or provide liquidity on Arbitrum.</small></div><div><a href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/ais-tokenlist.json" target="_blank" data-i18n="token.link_json">AIS token list (JSON)</a><small data-i18n="token.link_json_desc">Integration-ready token list for dApps and frontends.</small></div></div><div class="warn" data-i18n="token.warning">Always verify the contract address before interacting with AIS: <strong>0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69</strong>. Do not trust tokens with similar names but different addresses.</div></div></aside>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AIS Token – The Payment Layer for Autonomous AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AIS is a next-generation utility token for AI workloads on Arbitrum One, enabling fast, low-cost, on-chain payments for inference, automation, and autonomous agents." />
+  <meta name="robots" content="index,follow" />
 
-</div></main>
+  <!-- Open Graph -->
+  <meta property="og:title" content="AIS Token – The Payment Layer for Autonomous AI" />
+  <meta property="og:description" content="AIS powers real-time, low-cost payments for AI workloads on Arbitrum One, built for autonomous agents and AI-native systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" />
+  <meta property="og:url" content="https://aistocktoken.github.io" />
 
-<section class="reveal"><h2 data-i18n="about.title">What is AIS?</h2>
-<p data-i18n="about.p1">AIS is a utility token purpose-built for AI-driven systems operating on Arbitrum One. Instead of relying on centralized payment processors, AIS enables direct, on-chain settlement for inference tasks, automation pipelines, and usage-based AI billing. Its mission is to provide a frictionless, predictable payment layer for the emerging ecosystem of autonomous agents and AI-native applications.</p>
-<p data-i18n="about.p2">By leveraging Arbitrum’s low fees and high throughput, AIS is suitable for both micro-transactions and higher-volume workloads, making it a practical medium of exchange for AI-powered products.</p>
-</section>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AIS Token – AI Payment Layer on Arbitrum" />
+  <meta name="twitter:description" content="AIS is a utility token for AI service payments on Arbitrum One, optimized for micro-transactions and real-time settlement." />
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" />
 
-<section class="reveal"><h2 data-i18n="utility.title">Utility and intended use</h2>
-<p data-i18n="utility.p1">AIS is engineered for real-world AI payment flows, including:</p>
-<ul>
-<li data-i18n="utility.li1">Pay-as-you-go AI inference (per request, per token, or per session).</li>
-<li data-i18n="utility.li2">Prepaid credit systems for AI tools and automation workflows.</li>
-<li data-i18n="utility.li3">On-chain settlement between AI service providers and users.</li>
-<li data-i18n="utility.li4">Integration into dashboards, backends, and metering systems.</li>
-</ul>
-<p data-i18n="utility.p2">AIS does not represent equity, governance rights, or a claim on revenue. It is a pure utility asset designed for operational use within AI-related services.</p>
-</section>
+  <link rel="icon" href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" type="image/png" />
 
-<section class="reveal"><h2 data-i18n="dev.title">For developers</h2>
-<div class="dev-grid">
-<div>
-<p data-i18n="dev.p1">AIS follows the ERC‑20 standard on Arbitrum One, making it straightforward to integrate into wallets, dApps, and backend systems. You can use familiar tooling such as ethers.js, web3.js, or wagmi to interact with the contract and build custom payment flows for AI workloads.</p>
-<p data-i18n="dev.p2">Common patterns include mapping AIS transfers to user credits, implementing usage-based billing, and listening to on-chain events to drive automation in your infrastructure.</p>
-</div>
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #050816;
+      --accent: #38bdf8;
+      --accent-strong: #6366f1;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #f97373;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.65);
+      --glass: rgba(15, 23, 42, 0.82);
+      --code-bg: #020617;
+    }
 
-<div class="code-block">
-<div class="code-header"><div class="code-dots"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div><span data-i18n="dev.code_label">ethers.js example</span></div>
-<div class="code-body" id="code-dev">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background:
+        radial-gradient(circle at 10% -10%, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 110%, rgba(79, 70, 229, 0.22), transparent 55%),
+        radial-gradient(circle at 50% 50%, #020617 0, #000 70%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(15, 23, 42, 0.45) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.45) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.18;
+      z-index: -1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 30% 20%, #ffffff 0, #38bdf8 30%, #020617 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.65);
+      overflow: hidden;
+      position: relative;
+      animation: heroGlow 7s ease-in-out infinite;
+    }
+
+    .brand-logo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 10% 0, rgba(248, 250, 252, 0.18), transparent 55%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    .brand-text-title {
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-text-main {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .brand-text-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .header-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .header-link {
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .header-link::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(56, 189, 248, 0.16), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .header-link:hover::before {
+      opacity: 1;
+    }
+
+    .header-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.9);
+    }
+
+    .header-link span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #e5e7eb;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3.1fr) minmax(0, 2.3fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .card {
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.96), #020617 80%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 24px 24px 22px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(148, 163, 255, 0.16), transparent 60%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 14px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    h1 {
+      font-size: clamp(30px, 3.4vw, 38px);
+      line-height: 1.12;
+      margin-bottom: 12px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(120deg, #e5e7eb, #a5b4fc, #38bdf8);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 20px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease, opacity 0.12s ease;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      color: white;
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.7);
+    }
+
+    .btn-primary::before,
+    .btn-secondary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(248, 250, 252, 0.18), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .btn-primary:hover::before,
+    .btn-secondary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 50px rgba(56, 189, 248, 0.85);
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+    }
+
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .note strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .side-card {
+      background:
+        radial-gradient(circle at top right, rgba(79, 70, 229, 0.22), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(15, 23, 42, 0.98), #020617 80%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(148, 163, 255, 0.14), transparent 60%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .side-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .token-meta {
+      display: grid;
+      grid-template-columns: 1.1fr 1.5fr;
+      gap: 10px 16px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .meta-label {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .meta-value {
+      color: #e5e7eb;
+      word-break: break-all;
+    }
+
+    .meta-highlight {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: #e5e7eb;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 12px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+    }
+
+    .links-list {
+      display: grid;
+      gap: 7px;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .links-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7eb;
+    }
+
+    .links-list small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .warn {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--danger);
+      background: rgba(248, 113, 113, 0.06);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      padding: 7px 9px;
+    }
+
+    section {
+      margin-top: 32px;
+    }
+
+    section h2 {
+      font-size: 15px;
+      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    section p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 780px;
+      margin-bottom: 8px;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 780px;
+    }
+
+    ul li {
+      margin-bottom: 4px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+      top: 2px;
+    }
+
+    /* Developer section */
+    .dev-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .dev-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 12px 12px 10px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: #e5e7eb;
+      overflow-x: auto;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .code-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4b5563;
+    }
+
+    .code-dot:nth-child(1) { background: #f97373; }
+    .code-dot:nth-child(2) { background: #facc15; }
+    .code-dot:nth-child(3) { background: #22c55e; }
+
+    .code-body {
+      white-space: pre;
+    }
+
+    /* Integrator flow */
+    .flow-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .flow-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .flow-steps {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .flow-steps ol {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 6px;
+    }
+
+    .flow-steps li {
+      margin-bottom: 8px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .flow-steps li::before {
+      content: "◦";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
+      top: 1px;
+    }
+
+    .flow-diagram {
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 60%),
+                  radial-gradient(circle at bottom, rgba(79, 70, 229, 0.18), transparent 60%),
+                  rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 14px 16px;
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flow-diagram pre {
+      white-space: pre;
+    }
+
+    /* Roadmap */
+    .roadmap {
+      margin-top: 10px;
+      max-width: 780px;
+    }
+
+    .roadmap-item {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .roadmap-node {
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .roadmap-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+    }
+
+    .roadmap-line {
+      position: absolute;
+      top: 10px;
+      left: 4px;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(56, 189, 248, 0.5), transparent);
+      opacity: 0.7;
+    }
+
+    .roadmap-content-title {
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 2px;
+    }
+
+    .roadmap-content-body {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 34px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      padding-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animations */
+    @keyframes heroGlow {
+      0%, 100% {
+        box-shadow: 0 18px 40px rgba(56, 189, 248, 0.55);
+        transform: translateY(0);
+      }
+      50% {
+        box-shadow: 0 24px 60px rgba(56, 189, 248, 0.9);
+        transform: translateY(-1px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/logo.png" alt="AIS Token Logo" />
+        </div>
+        <div>
+          <div class="brand-text-title">AIS TOKEN</div>
+          <div class="brand-text-main">The payment layer for autonomous AI</div>
+          <div class="brand-text-sub">Utility token for AI workloads on Arbitrum One</div>
+        </div>
+      </div>
+      <div class="header-links">
+        <a class="header-link" href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" rel="noopener noreferrer">
+          <span>Explorer</span> Arbiscan
+        </a>
+        <a class="header-link" href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" rel="noopener noreferrer">
+          <span>DEX</span> Uniswap
+        </a>
+        <a class="header-link" href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/ais-tokenlist.json" target="_blank" rel="noopener noreferrer">
+          <span>JSON</span> Token list
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <div class="card reveal">
+        <div class="card-inner">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            On-chain utility powering autonomous AI
+          </div>
+
+          <h1>
+            <span class="gradient-text">AIS Token</span> — the payment engine for AI workloads on Arbitrum
+          </h1>
+
+          <p class="subtitle">
+            AIS is a next-generation utility token engineered for real-time, low-cost payments across AI systems.
+            Built on Arbitrum One, AIS enables seamless settlement for inference, automation, and agent-driven
+            workloads — without relying on traditional payment rails.
+          </p>
+
+          <div class="badge-row">
+            <div class="badge">Chain: Arbitrum One (42161)</div>
+            <div class="badge">Standard: ERC‑20</div>
+            <div class="badge">Utility: AI service payments</div>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" rel="noopener noreferrer">
+              Open AIS on Uniswap
+            </a>
+            <a class="btn btn-secondary" href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" rel="noopener noreferrer">
+              View contract on Arbiscan
+            </a>
+          </div>
+
+          <p class="note">
+            <strong>Important:</strong> AIS is a pure utility token designed for AI service payments. It is not an
+            investment and does not grant ownership, governance, or profit rights.
+          </p>
+        </div>
+      </div>
+
+      <!-- Token details -->
+      <aside class="side-card reveal">
+        <div class="side-card-inner">
+          <div class="side-title">Token details</div>
+
+          <div class="token-meta">
+            <div class="meta-label">Name</div>
+            <div class="meta-value">AIS Token</div>
+
+            <div class="meta-label">Symbol</div>
+            <div class="meta-value">AIS</div>
+
+            <div class="meta-label">Network</div>
+            <div class="meta-value">Arbitrum One (L2)</div>
+
+            <div class="meta-label">Decimals</div>
+            <div class="meta-value">18</div>
+
+            <div class="meta-label">Standard</div>
+            <div class="meta-value">ERC‑20</div>
+
+            <div class="meta-label">Primary use</div>
+            <div class="meta-value">AI service payments & credit systems</div>
+          </div>
+
+          <div class="meta-label" style="margin-top: 6px;">Contract address</div>
+          <div class="meta-highlight">
+            0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69
+          </div>
+
+          <div class="chip-row">
+            <div class="chip">Native to Arbitrum One</div>
+            <div class="chip">Optimized for low-fee execution</div>
+            <div class="chip">Ideal for micro-transactions</div>
+          </div>
+
+          <div class="links-list">
+            <div>
+              <a href="https://arbiscan.io/token/0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69" target="_blank" rel="noopener noreferrer">
+                Arbiscan token page
+              </a>
+              <small>Official on-chain reference for AIS.</small>
+            </div>
+            <div>
+              <a href="https://app.uniswap.org/swap?chain=arbitrum" target="_blank" rel="noopener noreferrer">
+                Uniswap – swap & liquidity
+              </a>
+              <small>Swap AIS or provide liquidity on Arbitrum.</small>
+            </div>
+            <div>
+              <a href="https://raw.githubusercontent.com/aistocktoken/ais-token-assets/main/ais-tokenlist.json" target="_blank" rel="noopener noreferrer">
+                AIS token list (JSON)
+              </a>
+              <small>Integration-ready token list for dApps and frontends.</small>
+            </div>
+          </div>
+
+          <div class="warn">
+            Always verify the contract address before interacting with AIS:
+            <strong>0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69</strong>.
+            Do not trust tokens with similar names but different addresses.
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- What is AIS -->
+    <section class="reveal">
+      <h2>What is AIS?</h2>
+      <p>
+        AIS is a utility token purpose-built for AI-driven systems operating on Arbitrum One. Instead of relying
+        on centralized payment processors, AIS enables direct, on-chain settlement for inference tasks, automation
+        pipelines, and usage-based AI billing. Its mission is to provide a frictionless, predictable payment layer
+        for the emerging ecosystem of autonomous agents and AI-native applications.
+      </p>
+      <p>
+        By leveraging Arbitrum’s low fees and high throughput, AIS is suitable for both micro-transactions and
+        higher-volume workloads, making it a practical medium of exchange for AI-powered products.
+      </p>
+    </section>
+
+    <!-- Utility -->
+    <section class="reveal">
+      <h2>Utility and intended use</h2>
+      <p>AIS is engineered for real-world AI payment flows, including:</p>
+      <ul>
+        <li>Pay-as-you-go AI inference (per request, per token, or per session).</li>
+        <li>Prepaid credit systems for AI tools and automation workflows.</li>
+        <li>On-chain settlement between AI service providers and users.</li>
+        <li>Integration into dashboards, backends, and metering systems.</li>
+      </ul>
+      <p>
+        AIS does <strong>not</strong> represent equity, governance rights, or a claim on revenue. It is a pure
+        utility asset designed for operational use within AI-related services.
+      </p>
+    </section>
+
+    <!-- For Developers -->
+    <section class="reveal">
+      <h2>For developers</h2>
+      <div class="dev-grid">
+        <div>
+          <p>
+            AIS follows the ERC‑20 standard on Arbitrum One, making it straightforward to integrate into wallets,
+            dApps, and backend systems. You can use familiar tooling such as ethers.js, web3.js, or wagmi to
+            interact with the contract and build custom payment flows for AI workloads.
+          </p>
+          <p>
+            Common patterns include mapping AIS transfers to user credits, implementing usage-based billing, and
+            listening to on-chain events to drive automation in your infrastructure.
+          </p>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="code-dot"></span>
+              <span class="code-dot"></span>
+              <span class="code-dot"></span>
+            </div>
+            <span>ethers.js example</span>
+          </div>
+          <div class="code-body" id="code-dev">
 import { ethers } from "ethers";
 
 const provider = new ethers.JsonRpcProvider(
@@ -146,23 +935,31 @@ console.log("AIS balance:", balance.toString());
 ais.on("Transfer", (from, to, value) => {
   console.log(`AIS Transfer: ${value} from ${from} to ${to}`);
 });
-</div></div></div></section>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section class="reveal"><h2 data-i18n="integrators.title">For integrators</h2>
-<div class="flow-grid">
-<div class="flow-steps">
-<p data-i18n="integrators.p1">AIS is designed to slot cleanly into existing AI products, dashboards, and automation platforms. A typical integration flow looks like this:</p>
-<ol>
-<li data-i18n="integrators.step1">User acquires AIS via Uniswap or any Arbitrum-compatible wallet.</li>
-<li data-i18n="integrators.step2">User sends AIS to your service address or payment contract.</li>
-<li data-i18n="integrators.step3">Backend listens for AIS Transfer events on Arbitrum.</li>
-<li data-i18n="integrators.step4">Credits are issued based on the amount of AIS received.</li>
-<li data-i18n="integrators.step5">AI workloads consume credits per request, token, or session.</li>
-<li data-i18n="integrators.step6">Usage is tracked and surfaced in your UI or API.</li>
-</ol>
-</div>
-
-<div class="flow-diagram"><pre>
+    <!-- For Integrators -->
+    <section class="reveal">
+      <h2>For integrators</h2>
+      <div class="flow-grid">
+        <div class="flow-steps">
+          <p>
+            AIS is designed to slot cleanly into existing AI products, dashboards, and automation platforms. A
+            typical integration flow looks like this:
+          </p>
+          <ol>
+            <li><strong>User acquires AIS</strong> via Uniswap or any Arbitrum-compatible wallet.</li>
+            <li><strong>User sends AIS</strong> to your service address or payment contract.</li>
+            <li><strong>Backend listens</strong> for AIS <code>Transfer</code> events on Arbitrum.</li>
+            <li><strong>Credits are issued</strong> based on the amount of AIS received.</li>
+            <li><strong>AI workloads consume credits</strong> per request, token, or session.</li>
+            <li><strong>Usage is tracked</strong> and surfaced in your UI or API.</li>
+          </ol>
+        </div>
+        <div class="flow-diagram">
+<pre>
 [ User Wallet ]
        |
        v
@@ -173,72 +970,116 @@ ais.on("Transfer", (from, to, value) => {
        |                        |
        v                        v
 [  AI Workload  ] <----- [ Usage Metering ]
-</pre></div>
-</div></section>
+</pre>
+        </div>
+      </div>
+    </section>
 
-<section class="reveal"><h2 data-i18n="roadmap.title">Roadmap & vision</h2>
-<p data-i18n="roadmap.p1">AIS aims to become a reliable payment primitive for AI-native systems. The focus is on practical, integration-ready tooling rather than speculation — with an emphasis on transparency, simplicity, and predictable behavior on-chain.</p>
+    <!-- Roadmap / Vision -->
+    <section class="reveal">
+      <h2>Roadmap & vision</h2>
+      <p>
+        AIS aims to become a reliable payment primitive for AI-native systems. The focus is on practical,
+        integration-ready tooling rather than speculation — with an emphasis on transparency, simplicity, and
+        predictable behavior on-chain.
+      </p>
+      <div class="roadmap">
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-line"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Expanded developer tooling</div>
+            <div class="roadmap-content-body">
+              More examples, templates, and integration guides for dApps, backends, and AI platforms using AIS
+              as a payment layer.
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-line"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Ecosystem integrations</div>
+            <div class="roadmap-content-body">
+              Encouraging adoption across AI dashboards, automation tools, and agent frameworks that benefit
+              from on-chain, usage-based billing.
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+            <div class="roadmap-line"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Standardized metering patterns</div>
+            <div class="roadmap-content-body">
+              Documenting best practices for mapping AIS payments to credits, quotas, and AI workload
+              consumption in a transparent way.
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-node">
+            <div class="roadmap-dot"></div>
+          </div>
+          <div>
+            <div class="roadmap-content-title">Open-source reference implementations</div>
+            <div class="roadmap-content-body">
+              Publishing reference integrations that demonstrate end-to-end AIS-powered payment flows for AI
+              services, from wallet to workload.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<div class="roadmap">
-<div class="roadmap-item"><div class="roadmap-node"><div class="roadmap-dot"></div><div class="roadmap-line"></div></div><div><div class="roadmap-content-title" data-i18n="roadmap.r1_title">Expanded developer tooling</div><div class="roadmap-content-body" data-i18n="roadmap.r1_body">More examples, templates, and integration guides for dApps, backends, and AI platforms using AIS as a payment layer.</div></div></div>
+    <footer>
+      <div>© <span id="year"></span> AIS Token — powering AI payments on Arbitrum One.</div>
+      <div>Always verify the contract address before interacting with AIS.</div>
+    </footer>
+  </div>
 
-<div class="roadmap-item"><div class="roadmap-node"><div class="roadmap-dot"></div><div class="roadmap-line"></div></div><div><div class="roadmap-content-title" data-i18n="roadmap.r2_title">Ecosystem integrations</div><div class="roadmap-content-body" data-i18n="roadmap.r2_body">Encouraging adoption across AI dashboards, automation tools, and agent frameworks that benefit from on-chain, usage-based billing.</div></div></div>
+  <script>
+    // Dynamic year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-<div class="roadmap-item"><div class="roadmap-node"><div class="roadmap-dot"></div><div class="roadmap-line"></div></div><div><div class="roadmap-content-title" data-i18n="roadmap.r3_title">Standardized metering patterns</div><div class="roadmap-content-body" data-i18n="roadmap.r3_body">Documenting best practices for mapping AIS payments to credits, quotas, and AI workload consumption in a transparent way.</div></div></div>
+    // Scroll reveal
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    reveals.forEach((el) => observer.observe(el));
 
-<div class="roadmap-item"><div class="roadmap-node"><div class="roadmap-dot"></div></div><div><div class="roadmap-content-title" data-i18n="roadmap.r4_title">Open-source reference implementations</div><div class="roadmap-content-body" data-i18n="roadmap.r4_body">Publishing reference integrations that demonstrate end-to-end AIS-powered payment flows for AI services, from wallet to workload.</div></div></div>
-</div></section>
-
-<footer><div>© <span id="year"></span> AIS Token — powering AI payments on Arbitrum One.</div><div data-i18n="footer.notice">Always verify the contract address before interacting with AIS.</div></footer>
-
-</div>
-<script>
-// Dynamic year
-document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
-<!-- JS will be Part 3 -->
-<script>
-/* ===========================
-   AIS MULTILINGUAL ENGINE
-=========================== */
-
-/* --- Translation dictionaries --- */
-const i18n={en:{ "meta.title":"AIS Token – The Payment Layer for Autonomous AI","meta.description":"AIS is a next-generation utility token for AI workloads on Arbitrum One, enabling fast, low-cost, on-chain payments for inference, automation, and autonomous agents.","meta.og_title":"AIS Token – The Payment Layer for Autonomous AI","meta.og_description":"AIS powers real-time, low-cost payments for AI workloads on Arbitrum One, built for autonomous agents and AI-native systems.","meta.twitter_title":"AIS Token – AI Payment Layer on Arbitrum","meta.twitter_description":"AIS is a utility token for AI service payments on Arbitrum One, optimized for micro-transactions and real-time settlement.","header.token_label":"AIS TOKEN","header.tagline":"The payment layer for autonomous AI","header.subtagline":"Utility token for AI workloads on Arbitrum One","header.explorer_label":"Explorer","header.dex_label":"DEX","header.json_label":"JSON","hero.pill":"On-chain utility powering autonomous AI","hero.title":"— the payment engine for AI workloads on Arbitrum","hero.subtitle":"AIS is a next-generation utility token engineered for real-time, low-cost payments across AI systems. Built on Arbitrum One, AIS enables seamless settlement for inference, automation, and agent-driven workloads — without relying on traditional payment rails.","hero.badge_chain":"Chain: Arbitrum One (42161)","hero.badge_standard":"Standard: ERC‑20","hero.badge_utility":"Utility: AI service payments","hero.cta_uniswap":"Open AIS on Uniswap","hero.cta_contract":"View contract on Arbiscan","hero.note":"Important: AIS is a pure utility token designed for AI service payments. It is not an investment and does not grant ownership, governance, or profit rights.","token.title":"Token details","token.name_label":"Name","token.name_value":"AIS Token","token.symbol_label":"Symbol","token.symbol_value":"AIS","token.network_label":"Network","token.network_value":"Arbitrum One (L2)","token.decimals_label":"Decimals","token.decimals_value":"18","token.standard_label":"Standard","token.standard_value":"ERC‑20","token.use_label":"Primary use","token.use_value":"AI service payments & credit systems","token.contract_label":"Contract address","token.chip_1":"Native to Arbitrum One","token.chip_2":"Optimized for low-fee execution","token.chip_3":"Ideal for micro-transactions","token.link_arbiscan":"Arbiscan token page","token.link_arbiscan_desc":"Official on-chain reference for AIS.","token.link_uniswap":"Uniswap – swap & liquidity","token.link_uniswap_desc":"Swap AIS or provide liquidity on Arbitrum.","token.link_json":"AIS token list (JSON)","token.link_json_desc":"Integration-ready token list for dApps and frontends.","token.warning":"Always verify the contract address before interacting with AIS: 0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69. Do not trust tokens with similar names but different addresses.","about.title":"What is AIS?","about.p1":"AIS is a utility token purpose-built for AI-driven systems operating on Arbitrum One. Instead of relying on centralized payment processors, AIS enables direct, on-chain settlement for inference tasks, automation pipelines, and usage-based AI billing.","about.p2":"By leveraging Arbitrum’s low fees and high throughput, AIS is suitable for both micro-transactions and higher-volume workloads.","utility.title":"Utility and intended use","utility.p1":"AIS is engineered for real-world AI payment flows, including:","utility.li1":"Pay-as-you-go AI inference (per request, per token, or per session).","utility.li2":"Prepaid credit systems for AI tools and automation workflows.","utility.li3":"On-chain settlement between AI service providers and users.","utility.li4":"Integration into dashboards, backends, and metering systems.","utility.p2":"AIS does not represent equity, governance rights, or a claim on revenue. It is a pure utility asset designed for operational use.","dev.title":"For developers","dev.p1":"AIS follows the ERC‑20 standard on Arbitrum One, making it straightforward to integrate into wallets, dApps, and backend systems.","dev.p2":"Common patterns include mapping AIS transfers to user credits, implementing usage-based billing, and listening to on-chain events.","dev.code_label":"ethers.js example","integrators.title":"For integrators","integrators.p1":"AIS is designed to slot cleanly into existing AI products, dashboards, and automation platforms.","integrators.step1":"User acquires AIS via Uniswap or any Arbitrum-compatible wallet.","integrators.step2":"User sends AIS to your service address or payment contract.","integrators.step3":"Backend listens for AIS Transfer events on Arbitrum.","integrators.step4":"Credits are issued based on the amount of AIS received.","integrators.step5":"AI workloads consume credits per request, token, or session.","integrators.step6":"Usage is tracked and surfaced in your UI or API.","roadmap.title":"Roadmap & vision","roadmap.p1":"AIS aims to become a reliable payment primitive for AI-native systems.","roadmap.r1_title":"Expanded developer tooling","roadmap.r1_body":"More examples, templates, and integration guides.","roadmap.r2_title":"Ecosystem integrations","roadmap.r2_body":"Encouraging adoption across AI dashboards and automation tools.","roadmap.r3_title":"Standardized metering patterns","roadmap.r3_body":"Documenting best practices for mapping AIS payments.","roadmap.r4_title":"Open-source reference implementations","roadmap.r4_body":"Publishing reference integrations for AIS-powered payment flows.","footer.notice":"Always verify the contract address before interacting with AIS." },
-
-/* --- Polish --- */
-pl:{ "meta.title":"AIS Token – Warstwa płatności dla autonomicznej SI","meta.description":"AIS to nowoczesny token użytkowy dla obciążeń SI na Arbitrum One.","meta.og_title":"AIS Token – Warstwa płatności dla autonomicznej SI","meta.og_description":"AIS zapewnia szybkie, tanie rozliczenia dla obciążeń SI.","meta.twitter_title":"AIS Token – Warstwa płatności SI","meta.twitter_description":"AIS to token użytkowy do płatności za usługi SI.","header.token_label":"AIS TOKEN","header.tagline":"Warstwa płatności dla autonomicznej SI","header.subtagline":"Token użytkowy dla obciążeń SI na Arbitrum One","header.explorer_label":"Explorer","header.dex_label":"DEX","header.json_label":"JSON","hero.pill":"On-chain utility dla autonomicznej SI","hero.title":"— silnik płatności dla obciążeń SI na Arbitrum","hero.subtitle":"AIS to nowej generacji token użytkowy zaprojektowany do szybkich, tanich płatności w systemach SI.","hero.badge_chain":"Sieć: Arbitrum One (42161)","hero.badge_standard":"Standard: ERC‑20","hero.badge_utility":"Zastosowanie: płatności za usługi SI","hero.cta_uniswap":"Otwórz AIS na Uniswap","hero.cta_contract":"Zobacz kontrakt na Arbiscan","hero.note":"Ważne: AIS to token użytkowy przeznaczony do płatności za usługi SI.","token.title":"Szczegóły tokena","token.name_label":"Nazwa","token.name_value":"AIS Token","token.symbol_label":"Symbol","token.symbol_value":"AIS","token.network_label":"Sieć","token.network_value":"Arbitrum One (L2)","token.decimals_label":"Decimale","token.decimals_value":"18","token.standard_label":"Standard","token.standard_value":"ERC‑20","token.use_label":"Główne zastosowanie","token.use_value":"Płatności za usługi SI i systemy kredytowe","token.contract_label":"Adres kontraktu","token.chip_1":"Natywny dla Arbitrum One","token.chip_2":"Zoptymalizowany pod niskie opłaty","token.chip_3":"Idealny do mikropłatności","token.link_arbiscan":"Strona tokena na Arbiscan","token.link_arbiscan_desc":"Oficjalne źródło on-chain.","token.link_uniswap":"Uniswap – swap i płynność","token.link_uniswap_desc":"Wymień AIS lub dodaj płynność.","token.link_json":"Lista tokenów AIS (JSON)","token.link_json_desc":"Lista kompatybilna z dApps.","token.warning":"Zawsze weryfikuj adres kontraktu: 0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69.","about.title":"Czym jest AIS?","about.p1":"AIS to token użytkowy stworzony dla systemów SI.","about.p2":"Dzięki niskim opłatom AIS nadaje się do mikropłatności.","utility.title":"Zastosowanie i przeznaczenie","utility.p1":"AIS obsługuje realne przepływy płatności SI:","utility.li1":"Inferencja SI w modelu pay-as-you-go.","utility.li2":"Systemy kredytowe dla narzędzi SI.","utility.li3":"Rozliczenia on-chain między usługodawcami SI.","utility.li4":"Integracja z backendami i dashboardami.","utility.p2":"AIS nie reprezentuje udziałów ani praw zarządczych.","dev.title":"Dla deweloperów","dev.p1":"AIS jest zgodny ze standardem ERC‑20.","dev.p2":"Typowe wzorce obejmują mapowanie transferów AIS na kredyty.","dev.code_label":"Przykład ethers.js","integrators.title":"Dla integratorów","integrators.p1":"AIS łatwo integruje się z produktami SI.","integrators.step1":"Użytkownik kupuje AIS.","integrators.step2":"Wysyła AIS do Twojego adresu.","integrators.step3":"Backend nasłuchuje zdarzeń Transfer.","integrators.step4":"Przydzielane są kredyty.","integrators.step5":"SI zużywa kredyty.","integrators.step6":"Zużycie jest raportowane.","roadmap.title":"Roadmapa i wizja","roadmap.p1":"AIS ma stać się niezawodną warstwą płatności.","roadmap.r1_title":"Rozszerzone narzędzia developerskie","roadmap.r1_body":"Więcej przykładów i integracji.","roadmap.r2_title":"Integracje ekosystemowe","roadmap.r2_body":"Adopcja w dashboardach SI.","roadmap.r3_title":"Standaryzacja meteringu","roadmap.r3_body":"Najlepsze praktyki mapowania płatności.","roadmap.r4_title":"Implementacje referencyjne","roadmap.r4_body":"Przykłady end‑to‑end.","footer.notice":"Zawsze weryfikuj adres kontraktu." },
-
-/* --- German --- */
-de:{ "meta.title":"AIS Token – Die Zahlungsschicht für autonome KI","meta.description":"AIS ist ein moderner Utility‑Token für KI‑Workloads auf Arbitrum One.","meta.og_title":"AIS Token – Die Zahlungsschicht für autonome KI","meta.og_description":"AIS ermöglicht schnelle, kostengünstige KI‑Abrechnungen.","meta.twitter_title":"AIS Token – KI‑Zahlungsschicht","meta.twitter_description":"AIS ist ein Utility‑Token für KI‑Dienstzahlungen.","header.token_label":"AIS TOKEN","header.tagline":"Die Zahlungsschicht für autonome KI","header.subtagline":"Utility‑Token für KI‑Workloads auf Arbitrum One","header.explorer_label":"Explorer","header.dex_label":"DEX","header.json_label":"JSON","hero.pill":"On‑Chain‑Utility für autonome KI","hero.title":"— die Zahlungsschicht für KI‑Workloads auf Arbitrum","hero.subtitle":"AIS ist ein moderner Utility‑Token für schnelle, günstige KI‑Zahlungen.","hero.badge_chain":"Netzwerk: Arbitrum One (42161)","hero.badge_standard":"Standard: ERC‑20","hero.badge_utility":"Nutzung: KI‑Dienstzahlungen","hero.cta_uniswap":"AIS auf Uniswap öffnen","hero.cta_contract":"Vertrag auf Arbiscan ansehen","hero.note":"Wichtig: AIS ist ein reiner Utility‑Token.","token.title":"Token‑Details","token.name_label":"Name","token.name_value":"AIS Token","token.symbol_label":"Symbol","token.symbol_value":"AIS","token.network_label":"Netzwerk","token.network_value":"Arbitrum One (L2)","token.decimals_label":"Dezimalstellen","token.decimals_value":"18","token.standard_label":"Standard","token.standard_value":"ERC‑20","token.use_label":"Hauptnutzung","token.use_value":"KI‑Dienstzahlungen & Kreditsysteme","token.contract_label":"Vertragsadresse","token.chip_1":"Nativ für Arbitrum One","token.chip_2":"Für niedrige Gebühren optimiert","token.chip_3":"Ideal für Mikrozah­lungen","token.link_arbiscan":"Arbiscan‑Tokenseite","token.link_arbiscan_desc":"Offizielle On‑Chain‑Referenz.","token.link_uniswap":"Uniswap – Swap & Liquidität","token.link_uniswap_desc":"AIS tauschen oder Liquidität bereitstellen.","token.link_json":"AIS‑Tokenliste (JSON)","token.link_json_desc":"Integrationsfertige Tokenliste.","token.warning":"Adresse immer prüfen: 0x1eD25D5f91EfDbC715b4666BfCa19d9573A1ED69.","about.title":"Was ist AIS?","about.p1":"AIS ist ein Utility‑Token für KI‑Systeme.","about.p2":"Dank niedriger Gebühren ideal für Mikrozah­lungen.","utility.title":"Nutzung und Zweck","utility.p1":"AIS unterstützt reale KI‑Zahlungsflüsse:","utility.li1":"Pay‑as‑you‑go KI‑Inference.","utility.li2":"Prepaid‑Kreditsysteme.","utility.li3":"On‑Chain‑Abrechnung.","utility.li4":"Integration in Dashboards und Backends.","utility.p2":"AIS ist kein Governance‑ oder Equity‑Token.","dev.title":"Für Entwickler","dev.p1":"AIS folgt dem ERC‑20‑Standard.","dev.p2":"Typische Muster: Credits, Billing, Events.","dev.code_label":"ethers.js Beispiel","integrators.title":"Für Integratoren","integrators.p1":"AIS integriert sich sauber in KI‑Produkte.","integrators.step1":"Nutzer kauft AIS.","integrators.step2":"Sendet AIS an deinen Dienst.","integrators.step3":"Backend hört Transfer‑Events.","integrators.step4":"Credits werden vergeben.","integrators.step5":"KI verbraucht Credits.","integrators.step6":"Nutzung wird angezeigt.","roadmap.title":"Roadmap & Vision","roadmap.p1":"AIS soll ein zuverlässiger Zahlungs‑Primitive werden.","roadmap.r1_title":"Mehr Developer‑Tools","roadmap.r1_body":"Mehr Beispiele und Templates.","roadmap.r2_title":"Ökosystem‑Integrationen","roadmap.r2_body":"Adoption in KI‑Dashboards.","roadmap.r3_title":"Standardisierte Metering‑Muster","roadmap.r3_body":"Best Practices dokumentieren.","roadmap.r4_title":"Referenz‑Implementierungen","roadmap.r4_body":"End‑to‑end AIS‑Integrationen.","footer.notice":"Adresse immer prüfen." }};
-
-/* --- Apply translation --- */
-function applyLang(lang){
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key=el.getAttribute("data-i18n");
-    if(i18n[lang] && i18n[lang][key]) el.innerHTML=i18n[lang][key];
-  });
-  document.documentElement.lang=lang;
-  localStorage.setItem("ais-lang",lang);
-}
-
-/* --- Language dropdown --- */
-const toggle=document.getElementById("langToggle");
-const menu=document.getElementById("langMenu");
-toggle.onclick=()=>{menu.style.display=menu.style.display==="flex"?"none":"flex"};
-document.querySelectorAll(".lang-option").forEach(opt=>{
-  opt.onclick=()=>{applyLang(opt.dataset.lang);menu.style.display="none"};
-});
-
-/* --- Load saved language --- */
-applyLang(localStorage.getItem("ais-lang")||"en");
-
-/* --- Scroll reveal --- */
-const revealEls=document.querySelectorAll(".reveal");
-function reveal(){revealEls.forEach(el=>{const rect=el.getBoundingClientRect();if(rect.top<window.innerHeight-60)el.classList.add("visible")})}
-window.addEventListener("scroll",reveal);reveal();
-
-/* --- Auto year --- */
-document.getElementById("year").textContent=new Date().getFullYear();
-</script>
-</body></html>
+    // Simple "terminal boot" effect for dev code
+    (function () {
+      const el = document.getElementById("code-dev");
+      if (!el) return;
+      const full = el.textContent;
+      el.textContent = "";
+      let i = 0;
+      const speed = 8; // ms per char
+      function type() {
+        if (i <= full.length) {
+          el.textContent = full.slice(0, i);
+          i++;
+          requestAnimationFrame(type);
+        }
+      }
+      setTimeout(type, 300);
+    })();
+  </script>
+</body>
+</html>
